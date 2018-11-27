@@ -8,21 +8,22 @@ public class Test {
 			System.out.println("单价："+ product.getPrice());
 			System.out.println("数量："+ product.getCount());
 			System.out.println("状态："+ product.isStatus());
+			System.out.println("入库日期："+ product.getDate());
 			System.out.println("--------------------------");
 		}
 	}
 	
 	public static void main(String[] args) {
-		Product p1 = new Product(111, "PSP", 1000, 10, true);
-		Product p2 = new Product(211, "New 3DSLL", 1800, 0, false);
-		Product p3 = new Product(321, "Sony 4K电视", 5599, 8, true);
-		Product p4 = new Product(322, "Sony 4K电视", 6599, 8, true);
-		Product p5 = new Product(134, "HTC VIVE", 4888, 5, true);
-		Product p6 = new Product(554, "Swtich", 2188, 6, true);
-		Product p7 = new Product(126, "Xbox one", 2800, 0, false);
-		Product p8 = new Product(127, "Xbox one", 1800, 5, true);
-		Product p9 = new Product(329, "PS VR", 2599, 3, true);
-		Product p10 = new Product(140, "PS4", 1999, 5, true);
+		Product p1 = new Product(111, "PSP", 1000, 10, true,"2017-10-13");
+		Product p2 = new Product(211, "New 3DSLL", 1800, 0, false,"2018-11-21");
+		Product p3 = new Product(321, "Sony 4K电视", 5599, 8, true,"2015-09-08");
+		Product p4 = new Product(322, "Sony 4K电视", 6599, 8, true,"2018-02-08");
+		Product p5 = new Product(134, "HTC VIVE", 4888, 5, true,"2018-01-31");
+		Product p6 = new Product(554, "Swtich", 2188, 6, true,"2017-04-24");
+		Product p7 = new Product(126, "Xbox one", 2800, 0, false,"2018-12-23");
+		Product p8 = new Product(127, "Xbox one", 1800, 5, true,"2018-10-01");
+		Product p9 = new Product(329, "PS VR", 2599, 3, true,"2017-07-04");
+		Product p10 = new Product(140, "PS4", 1999, 5, true,"2016-02-16");
 		
 		IProductDao ipd = new ProductDaoImpl();
 		
@@ -75,5 +76,8 @@ public class Test {
 		
 		System.out.println("-------------queryByCount------------");
 		printProduct(ipd.queryByCount(ipd.queryAll()));
+
+		System.out.println("-------------sortByDate------------");
+		printProduct(ipd.sortByDate(ipd.queryAll()));
 	}
 }

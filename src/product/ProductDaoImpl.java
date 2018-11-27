@@ -1,5 +1,9 @@
 package product;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class ProductDaoImpl implements IProductDao{
 	private Product[] products;
 	private int index = 0;
@@ -132,6 +136,27 @@ public class ProductDaoImpl implements IProductDao{
 			}
 		}
 		return product ;
+	}
+	@Override
+	public Product[] sortByDate(Product[] product) {
+		for(int i = 0; i < index-1; i++){
+			for(int j = i+1; j  < index; j++){
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				Date d,d1;
+				try {
+					d = sdf.parse(product[j].getDate());
+					d1 = sdf.parse(product[i].getDate());
+					if(d.before(d1)){
+						Product temp = product[j];
+						product[j] = product[i];
+						product[i] = temp;
+					}
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return product;
 	}
 
 }

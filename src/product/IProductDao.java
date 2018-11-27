@@ -10,4 +10,5 @@ public interface IProductDao {
 	Product[] queryByPrice(int max,int min);
 	Product[] queryByStatus(boolean status);
 	Product[] queryByCount(Product[] product);
+	Product[] sortByDate(Product[] product);
 }

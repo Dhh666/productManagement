@@ -6,18 +6,22 @@ public class Product {
 	private double price;  //商品单价
 	private int count; //商品数量
 	private boolean status;//状态
+	private String date;
 	
 	public Product() {
 		super();
 	}
-	public Product(int id, String name, double price, int count, boolean status) {
+
+	public Product(int id, String name, double price, int count, boolean status, String date) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.price = price;
 		this.count = count;
 		this.status = status;
+		this.date = date;
 	}
+
 	public int getId() {
 		return id;
 	}
@@ -48,6 +52,12 @@ public class Product {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-	
 
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
 }
