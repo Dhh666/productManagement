@@ -1,18 +1,25 @@
 package product;
 
+import java.util.Date;
+
 public class Product {
 	private int id;   //商品Id
 	private String name; //商品名
 	private double price;  //商品单价
 	private int count; //商品数量
 	private boolean status;//状态
-	private String date;
+	private Date date;
 	
 	public Product() {
 		super();
 	}
+	
+	public Product(int id) {
+		super();
+		this.id = id;
+	}
 
-	public Product(int id, String name, double price, int count, boolean status, String date) {
+	public Product(int id, String name, double price, int count, boolean status, Date date) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -53,11 +60,34 @@ public class Product {
 		this.status = status;
 	}
 
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Product other = (Product) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+	
 }

@@ -1,8 +1,13 @@
 package product;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
 public class Test {
 	
-	public static void printProduct(Product[] products){
+	public static void printProduct(ArrayList<Product> products){
 		for(Product product : products){
 			System.out.println("商品名："+ product.getName());
 			System.out.println("单价："+ product.getPrice());
@@ -13,17 +18,28 @@ public class Test {
 		}
 	}
 	
+	public static Date dateChange(String date){
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			Date d	= sdf.parse(date);
+			return d;
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+			return null;
+		}
+	
 	public static void main(String[] args) {
-		Product p1 = new Product(111, "PSP", 1000, 10, true,"2017-10-13");
-		Product p2 = new Product(211, "New 3DSLL", 1800, 0, false,"2018-11-21");
-		Product p3 = new Product(321, "Sony 4K电视", 5599, 8, true,"2015-09-08");
-		Product p4 = new Product(322, "Sony 4K电视", 6599, 8, true,"2018-02-08");
-		Product p5 = new Product(134, "HTC VIVE", 4888, 5, true,"2018-01-31");
-		Product p6 = new Product(554, "Swtich", 2188, 6, true,"2017-04-24");
-		Product p7 = new Product(126, "Xbox one", 2800, 0, false,"2018-12-23");
-		Product p8 = new Product(127, "Xbox one", 1800, 5, true,"2018-10-01");
-		Product p9 = new Product(329, "PS VR", 2599, 3, true,"2017-07-04");
-		Product p10 = new Product(140, "PS4", 1999, 5, true,"2016-02-16");
+		Product p1 = new Product(111, "PSP", 1000, 10, true,dateChange("2017-10-13"));
+		Product p2 = new Product(211, "New 3DSLL", 1800, 0, false,dateChange("2018-11-21"));
+		Product p3 = new Product(321, "Sony 4K电视", 5599, 8, true,dateChange("2015-09-08"));
+		Product p4 = new Product(322, "Sony 4K电视", 6599, 8, true,dateChange("2018-02-08"));
+		Product p5 = new Product(134, "HTC VIVE", 4888, 5, true,dateChange("2018-01-31"));
+		Product p6 = new Product(554, "Swtich", 2188, 6, true,dateChange("2017-04-24"));
+		Product p7 = new Product(126, "Xbox one", 2800, 0, false,dateChange("2018-12-23"));
+		Product p8 = new Product(127, "Xbox one", 1800, 5, true,dateChange("2018-10-01"));
+		Product p9 = new Product(329, "PS VR", 2599, 3, true,dateChange("2017-07-04"));
+		Product p10 = new Product(140, "PS4", 1999, 5, true,dateChange("2016-02-16"));
 		
 		IProductDao ipd = new ProductDaoImpl();
 		
@@ -63,19 +79,22 @@ public class Test {
 		}
 		
 		System.out.println("-------------queryByName------------");
-		Product[] product3 = ipd.queryByName("Xbox one");
+//		Product[] product3 = ipd.queryByName("Xbox one");
+		ArrayList<Product> product3 = ipd.queryByName("Xbox one");
 		printProduct(product3);
 		
 		System.out.println("-------------queryByPrice------------");
-		Product[] product4 = ipd.queryByPrice(5000, 2000);
+//		Product[] product4 = ipd.queryByPrice(5000, 2000);
+		ArrayList<Product> product4 = ipd.queryByPrice(5000, 2000);
 		printProduct(product4);
 		
 		System.out.println("-------------queryByStatus------------");
-		Product[] product5 = ipd.queryByStatus(false);
+//		Product[] product5 = ipd.queryByStatus(false);
+		ArrayList<Product> product5 = ipd.queryByStatus(false);
 		printProduct(product5);
 		
-		System.out.println("-------------queryByCount------------");
-		printProduct(ipd.queryByCount(ipd.queryAll()));
+		System.out.println("-------------sortByCount------------");
+		printProduct(ipd.sortByCount(ipd.queryAll()));
 
 		System.out.println("-------------sortByDate------------");
 		printProduct(ipd.sortByDate(ipd.queryAll()));

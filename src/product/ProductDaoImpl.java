@@ -2,9 +2,114 @@ package product;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 
 public class ProductDaoImpl implements IProductDao{
+
+	private ArrayList<Product> products;
+	
+	 public ProductDaoImpl() {
+		products = new ArrayList<Product>();
+	}
+	
+	@Override
+	public boolean save(Product product) {
+		products.add(product);
+		return true;
+	}
+
+	@Override
+	public boolean delete(int id) {
+		Product temp = new Product(id);
+		if(products.contains(temp)){
+			products.remove(temp);
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public Product modById(int id) {
+		Product temp = new Product(id);
+		if(products.contains(temp)){
+			int index = products.indexOf(temp);
+			return products.get(index);
+		}
+		return null;
+	}
+
+	@Override
+	public Product queryById(int id) {
+		Product temp = new Product(id);
+		if(products.contains(temp)){
+			int index = products.indexOf(temp);
+			return products.get(index);
+		}
+		return null;
+	}
+
+	@Override
+	public ArrayList<Product> queryByName(String name) {
+		ArrayList<Product> products2 = new ArrayList<Product>();
+		for(int i = 0; i < products.size(); i++){
+			if(products.get(i).getName().equals(name)){
+				products2.add(products.get(i));
+			}
+		}
+		return products2;
+	}
+
+	@Override
+	public ArrayList<Product> queryByPrice(int max, int min) {
+		ArrayList<Product> products2 = new ArrayList<Product>();
+		for(int i = 0; i < products.size(); i++){
+			if(min < products.get(i).getPrice() && max > products.get(i).getPrice()){
+				products2.add(products.get(i));
+			}
+		}
+		return products2;
+	}
+
+	@Override
+	public ArrayList<Product> queryByStatus(boolean status) {
+		ArrayList<Product> products2 = new ArrayList<Product>();
+		for(int i = 0; i < products.size(); i++){
+			if(products.get(i).isStatus() == status){
+				products2.add(products.get(i));
+			}
+		}
+		return products2;
+	}
+
+	@Override
+	public ArrayList<Product> sortByCount(ArrayList<Product> product) {
+		products.sort(new Comparator<Product>() {
+			@Override
+			public int compare(Product o1, Product o2) {
+				return o2.getCount()-o1.getCount();
+			}
+		});
+		return products;
+	}
+
+	@Override
+	public ArrayList<Product> sortByDate(ArrayList<Product> product) {
+		products.sort(new Comparator<Product>() {
+			@Override
+			public int compare(Product o1, Product o2) {
+				return o1.getDate().compareTo(o2.getDate());
+			}
+		});
+		return products;
+	}
+
+	@Override
+	public ArrayList<Product> queryAll() {
+		return products;
+	}
+/*
 	private Product[] products;
 	private int index = 0;
 	public ProductDaoImpl() {
@@ -158,5 +263,5 @@ public class ProductDaoImpl implements IProductDao{
 		}
 		return product;
 	}
-
+*/
 }
